@@ -6,6 +6,6 @@ module.exports = {
   database: "tcc",
   define: {
     timestamps: true,
-    undescored: true
+    underscored: true
   }
 };
