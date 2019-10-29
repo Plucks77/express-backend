@@ -9,6 +9,8 @@ const routes = express.Router();
 routes.post("/usuario/cadastrar", usuarioController.cadastrar);
 routes.post("/login", usuarioController.login);
 
+routes.use(middlawareAuth).post("/usuario/:id", usuarioController.infos);
+
 routes.use(middlawareAuth).post("/evento/criar", eventoController.criar);
 
 module.exports = routes;

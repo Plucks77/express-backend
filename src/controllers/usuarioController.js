@@ -45,5 +45,25 @@ module.exports = {
       user_id: user.id,
       token: generateToken({ id: user.id })
     });
+  },
+
+  async infos(req, res){
+
+    const id = req.params.id;    
+
+    const user = await usuario.findByPk(id);
+
+    if(!user)
+    {
+      return res.status(401).json({ erro: "Não existe um usuário com o id "+ id+" ." });
+    }
+
+    return res.json({
+      nome: user.nome,
+      email: user.email,
+      data_nascimento: user.data_nascimento,
+      cpf: user.cpf,
+      nick: user.nick      
+    })
   }
 };
