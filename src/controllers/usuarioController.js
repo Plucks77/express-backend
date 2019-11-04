@@ -1,6 +1,7 @@
 const usuario = require("../models/usuario");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth");
+const md5 = require('md5');
 
 function generateToken(params) {
   return jwt.sign(params, auth.secret, {
@@ -12,10 +13,11 @@ module.exports = {
   async cadastrar(req, res) {
     const { nome, email, senha, data_nascimento, cpf, nick } = req.body;
 
+    _senha =   md5(senha);
     const user = await usuario.create({
       nome,
       email,
-      senha,
+      senha: _senha,
       data_nascimento,
       cpf,
       nick
@@ -30,10 +32,12 @@ module.exports = {
   async login(req, res) {
     const { email, senha } = req.body;
 
+    _senha =  md5(senha);
+
     const user = await usuario.findOne({
       where: {
         email,
-        senha
+        senha: _senha
       }
     });
 
